@@ -3,15 +3,20 @@ package examenlion.view;
 
 import javax.swing.JFrame;
 
+import examenlion.controller.ControllerJugos;
+import examenlion.model.Contenedor;
 import examenlion.model.Fruta;
 
 public class Pagar extends javax.swing.JFrame {
 
     public Fruta fruta;
+    public Contenedor contenedor;
+    public ControllerJugos controllerJugos;
 
-    public Pagar(Fruta fruta) {
+    public Pagar(Fruta fruta, Contenedor contenedor) {
         initComponents();
         this.fruta = fruta;
+        this.contenedor = contenedor;
 
     }
 
@@ -70,6 +75,7 @@ public class Pagar extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        controllerJugos = new ControllerJugos(fruta, contenedor);
         Total total = new Total(fruta);
         total.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         total.setVisible(true);
@@ -78,7 +84,8 @@ public class Pagar extends javax.swing.JFrame {
     }// GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        fruta.extraerJugo(500);
+        ControllerJugos controllerJugos = new ControllerJugos(fruta, contenedor);
+        controllerJugos.extraerJugo(500);
         System.out.println(fruta.getCantidadActualJugo());
         System.out.println(fruta.getCantidadTotalJugo());
     }// GEN-LAST:event_jButton1ActionPerformed
@@ -117,7 +124,7 @@ public class Pagar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Pagar(null).setVisible(true);
+                new Pagar(null, null).setVisible(true);
             }
         });
     }

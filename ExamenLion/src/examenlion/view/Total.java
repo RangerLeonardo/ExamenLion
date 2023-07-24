@@ -3,15 +3,16 @@ package examenlion.view;
 
 import javax.swing.JFrame;
 
+import examenlion.controller.ControllerJugos;
 import examenlion.model.Fruta;
 
 public class Total extends javax.swing.JFrame {
 
-    Fruta fruta;
+    Fruta jugo;
 
-    public Total(Fruta fruta) {
+    public Total(Fruta jugo) {
         initComponents();
-        this.fruta = fruta;
+        this.jugo = jugo;
         updateLabels();
     }
 
@@ -85,8 +86,8 @@ public class Total extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void updateLabels() {
-        String nombreFruta = fruta.getNombre();
-        String totalPagar = fruta.getTotal();
+        String nombreFruta = "CAMBIAR ESTO TAMBIEN";
+        String totalPagar = "CAMBIAR ESTO";
         jLabel1.setText("Total a pagar: " + totalPagar);
         jLabel3.setText(nombreFruta);
 

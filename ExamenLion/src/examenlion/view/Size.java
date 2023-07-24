@@ -1,16 +1,17 @@
 
 package examenlion.view;
 
-import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import examenlion.controller.ControllerJugos;
+import examenlion.model.Contenedor;
 import examenlion.model.Fruta;
 
 public class Size extends javax.swing.JFrame {
 
     private String nombreJugo;
+    public ControllerJugos controllerJugos;
 
     public Size(String nombreJugo) {
         initComponents();
@@ -53,10 +54,10 @@ public class Size extends javax.swing.JFrame {
         });
 
         buttonGroup2.add(jRadioButton3);
-        jRadioButton3.setText("Bolsa 500ml");
+        jRadioButton3.setText("Bolsa 500ml (max:1000ml)");
 
         buttonGroup2.add(jRadioButton4);
-        jRadioButton4.setText("Vaso 1000ml");
+        jRadioButton4.setText("Vaso 1000ml (max:2000ml)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,43 +113,44 @@ public class Size extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int capacidad;
-        var bolsa = jRadioButton3;
-        var vaso = jRadioButton4;
 
-        if (bolsa.isSelected()) {
-            System.out.println("Bolsa");
-            capacidad = 500;
-        } else if (vaso.isSelected()) {
-            System.out.println("Vaso");
-            capacidad = 1000;
+        String tipoContenedor = "";
+        int capacidadContenedor;
+
+        if (jRadioButton3.isSelected()) {
+            tipoContenedor = "Bolsa";
+            capacidadContenedor = 500;
+        } else if (jRadioButton4.isSelected()) {
+            tipoContenedor = "Vaso";
+            capacidadContenedor = 1000;
         } else {
             JOptionPane.showMessageDialog(null,
                     "No has seleccionado un tamaño, selecciona uno para poder continuar");
             return;
         }
-        List<Fruta> listaFrutas = Fruta.listaFrutas;
 
-        int indiceFrutaSeleccionada = -1;
-        for (int i = 0; i < listaFrutas.size(); i++) {
-            Fruta fruta = listaFrutas.get(i);
-            if (fruta.getNombre().equals(nombreJugo)) {
-                indiceFrutaSeleccionada = i;
-                // System.out.println(fruta.getNombre() + "Encontré la fruta");
-                break; // Si encontramos la fruta, salimos del bucle
-            }
-        }
-        // Verificar si se encontró la fruta y restar la capacidad que el cliente pidió
-        if (indiceFrutaSeleccionada != -1) {
-            Fruta frutaSeleccionada = listaFrutas.get(indiceFrutaSeleccionada);
-            frutaSeleccionada.extraerJugo(capacidad);
-            frutaSeleccionada.setCantidadActualJugo(capacidad);
+        // Agregar el ingrediente
+        // ----------------------------------------------------------------
+        Fruta fruta = new Fruta();
+        Contenedor contenedor = new Contenedor(tipoContenedor, capacidadContenedor);
+
+        controllerJugos = new ControllerJugos(fruta, contenedor);
+
+        Fruta frutaEncontrada = controllerJugos.buscarNombreFruta(nombreJugo);
+        int frutaCantidadTotal = controllerJugos.buscarCapacidadTotalFruta(nombreJugo);
+        fruta.setCantidadTotalJugo(frutaCantidadTotal);
+        fruta.setNombre(nombreJugo);
+
+        controllerJugos.verificarContenedor(capacidadContenedor);
+
+        if (frutaEncontrada != null) {
+            controllerJugos.extraerJugo(capacidadContenedor);
             // Imprimir la capacidad restante
             System.out.println(
-                    "Capacidad restante de " + frutaSeleccionada.getNombre() + ": "
-                            + frutaSeleccionada.getCantidadTotalJugo() + " ml");
+                    "Capacidad restante de " + fruta.getNombre() + ": "
+                            + fruta.getCantidadTotalJugo() + " ml" + fruta.getCantidadActualJugo());
 
-            Pagar pagar = new Pagar(frutaSeleccionada);
+            Pagar pagar = new Pagar(fruta, contenedor);
             pagar.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             pagar.setVisible(true);
             pagar.setLocationRelativeTo(null);

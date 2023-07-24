@@ -1,12 +1,8 @@
 package examenlion.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import examenlion.model.Fruta;
+import javax.swing.JRadioButton;
 
 public class InterfazJugos extends javax.swing.JFrame {
 
@@ -62,7 +58,6 @@ public class InterfazJugos extends javax.swing.JFrame {
         jRadioButton1.setText("Naranja");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
             }
         });
 
@@ -70,7 +65,6 @@ public class InterfazJugos extends javax.swing.JFrame {
         jRadioButton2.setText("Zanahoria");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
             }
         });
 
@@ -84,7 +78,6 @@ public class InterfazJugos extends javax.swing.JFrame {
         jRadioButton5.setText("Remolacha");
         jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
             }
         });
 
@@ -155,57 +148,32 @@ public class InterfazJugos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jRadioButton5ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jRadioButton5ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jRadioButton1ActionPerformed
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        var naranja = jRadioButton1;
-        var zanahoria = jRadioButton2;
-        var nopal = jRadioButton3;
-        var manzana = jRadioButton4;
-        var remolacha = jRadioButton5;
-        String nombreJugo;
+        JRadioButton[] botones = { jRadioButton1, jRadioButton2, jRadioButton3, jRadioButton4, jRadioButton5 };
+        String nombreJugo = "";
 
-        if (naranja.isSelected()) {
-            nombreJugo = naranja.getText();
-            System.out.println(nombreJugo);
-        } else if (zanahoria.isSelected()) {
-            nombreJugo = zanahoria.getText();
-            System.out.println(nombreJugo);
+        // Recorremos los botones para encontrar el seleccionado
+        for (JRadioButton boton : botones) {
+            if (boton.isSelected()) {
+                nombreJugo = boton.getText();
+                break; // Si encontramos el botón seleccionado, salimos del bucle
+            }
+        }
 
-        } else if (nopal.isSelected()) {
-            nombreJugo = nopal.getText();
+        // Verificamos si se seleccionó un jugo
+        if (nombreJugo != "") {
             System.out.println(nombreJugo);
-        } else if (manzana.isSelected()) {
-            nombreJugo = manzana.getText();
-            System.out.println(nombreJugo);
-        } else if (remolacha.isSelected()) {
-            nombreJugo = remolacha.getText();
-            System.out.println(nombreJugo);
-
+            Size size = new Size(nombreJugo);
+            size.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            size.setVisible(true);
+            size.setLocationRelativeTo(null);
+            dispose();
         } else {
-            JOptionPane.showMessageDialog(null,
-                    "No has seleccionado un jugo, selecciona uno para poder continuar");
+            JOptionPane.showMessageDialog(null, "No has seleccionado un jugo, selecciona uno para poder continuar");
             return;
         }
 
-        Size size = new Size(nombreJugo);
-        size.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        size.setVisible(true);
-        size.setLocationRelativeTo(null);
-        dispose();
-
-    }// GEN-LAST:event_jButton7ActionPerformed
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
