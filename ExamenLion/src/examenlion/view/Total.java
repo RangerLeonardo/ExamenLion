@@ -87,7 +87,7 @@ public class Total extends javax.swing.JFrame {
                                         .addComponent(jButton2))
                                 .addGap(95, 95, 95)));
 
-        pack();
+        this.pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public void updateLabels() {
@@ -95,8 +95,7 @@ public class Total extends javax.swing.JFrame {
         String nombreFruta = jugo.getNombre();
         String totalPagar = controllerJugos.getTotal();
         jLabel1.setText("Total a pagar: " + totalPagar);
-        jLabel3.setText(nombreFruta);
-        // jLabel4.setText(controllerJugos.obtenerTotalMLYContenedor());
+        jLabel3.setText(nombreFruta /* + "\n" + controllerJugos.obtenerTotalMLYContenedor() */);
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
@@ -113,19 +112,8 @@ public class Total extends javax.swing.JFrame {
         dispose();
     }// GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

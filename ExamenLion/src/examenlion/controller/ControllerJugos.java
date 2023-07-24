@@ -7,6 +7,7 @@ import examenlion.exceptions.ExceptionCapacidadExcedida;
 import examenlion.exceptions.ExceptionNoHayJugo;
 import examenlion.model.Contenedor;
 import examenlion.model.Fruta;
+import examenlion.view.InterfazJugos;
 import examenlion.view.Total;
 
 public class ControllerJugos {
@@ -80,7 +81,12 @@ public class ControllerJugos {
                     new String[] { "Tirar", "Servir en otro contenedor" }, null);
 
             if (opcion == JOptionPane.YES_OPTION) {
+                InterfazJugos interfazJugos = new InterfazJugos();
+                interfazJugos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                interfazJugos.setVisible(true);
+                interfazJugos.setLocationRelativeTo(null);
                 throw new ExceptionCapacidadExcedida("El contenido del contenedor se ha excedido.");
+
             } else {
                 contenedor.setCantidad(fruta.getCantidadActualJugo());
             }
@@ -107,7 +113,7 @@ public class ControllerJugos {
     }
 
     public String obtenerTotalMLYContenedor() {
-        return "Fueron: " + fruta.getCantidadActualJugo() + "ml" + "\nServido en: " + contenedor.getName();
+        return "Fueron: " + fruta.getCantidadActualJugo() + "ml" + "\n Servido en: " + contenedor.getName();
 
     }
 
