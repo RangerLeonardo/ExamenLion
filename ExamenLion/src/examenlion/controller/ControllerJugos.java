@@ -5,12 +5,13 @@ import javax.swing.JOptionPane;
 
 import examenlion.exceptions.ExceptionCapacidadExcedida;
 import examenlion.exceptions.ExceptionNoHayJugo;
+import examenlion.interfaces.TieneCapacidad;
 import examenlion.model.Contenedor;
 import examenlion.model.Fruta;
 import examenlion.view.InterfazJugos;
 import examenlion.view.Total;
 
-public class ControllerJugos {
+public class ControllerJugos implements TieneCapacidad {
 
     private final Fruta fruta;
     private final Contenedor contenedor;

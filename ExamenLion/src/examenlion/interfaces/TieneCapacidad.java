@@ -1,13 +1,15 @@
 package examenlion.interfaces;
 
+import examenlion.model.Fruta;
+
 public interface TieneCapacidad {
-    int getCapacidadTotal();
+    String getTotal();
 
-    int getCantidadActual();
+    String getIngredienteJugo();
 
-    void agregarJugo();
+    Fruta buscarNombreFruta(String nombre);
 
-    void quitarJugo();
+    void verificarContenedor(int cantidad);
 
-    void contenedor(int contenedor);
+    String obtenerTotalMLYContenedor();
 }
