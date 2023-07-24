@@ -76,7 +76,7 @@ public class Pagar extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         controllerJugos = new ControllerJugos(fruta, contenedor);
-        Total total = new Total(fruta);
+        Total total = new Total(fruta, contenedor);
         total.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         total.setVisible(true);
         total.setLocationRelativeTo(null);

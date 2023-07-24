@@ -4,15 +4,20 @@ package examenlion.view;
 import javax.swing.JFrame;
 
 import examenlion.controller.ControllerJugos;
+import examenlion.model.Contenedor;
 import examenlion.model.Fruta;
 
 public class Total extends javax.swing.JFrame {
 
-    Fruta jugo;
+    private final Fruta jugo;
+    private final Contenedor contenedor;
 
-    public Total(Fruta jugo) {
+    private ControllerJugos controllerJugos;
+
+    public Total(Fruta jugo, Contenedor contenedor) {
         initComponents();
         this.jugo = jugo;
+        this.contenedor = contenedor;
         updateLabels();
     }
 
@@ -86,11 +91,12 @@ public class Total extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void updateLabels() {
-        String nombreFruta = "CAMBIAR ESTO TAMBIEN";
-        String totalPagar = "CAMBIAR ESTO";
+        controllerJugos = new ControllerJugos(jugo, contenedor);
+        String nombreFruta = jugo.getNombre();
+        String totalPagar = controllerJugos.getTotal();
         jLabel1.setText("Total a pagar: " + totalPagar);
         jLabel3.setText(nombreFruta);
-
+        // jLabel4.setText(controllerJugos.obtenerTotalMLYContenedor());
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
@@ -141,7 +147,7 @@ public class Total extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Total(null).setVisible(true);
+                new Total(null, null).setVisible(true);
             }
         });
     }
@@ -152,5 +158,6 @@ public class Total extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+
     // End of variables declaration//GEN-END:variables
 }

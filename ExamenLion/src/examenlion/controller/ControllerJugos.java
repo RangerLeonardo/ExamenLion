@@ -1,11 +1,13 @@
 package examenlion.controller;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import examenlion.exceptions.ExceptionCapacidadExcedida;
 import examenlion.exceptions.ExceptionNoHayJugo;
 import examenlion.model.Contenedor;
 import examenlion.model.Fruta;
+import examenlion.view.Total;
 
 public class ControllerJugos {
 
@@ -56,27 +58,43 @@ public class ControllerJugos {
 
     public void extraerJugo(int cantidad) throws ExceptionCapacidadExcedida, ExceptionNoHayJugo {
 
-        if (cantidad <= fruta.getCantidadTotalJugo()) {
-            fruta.setCantidadTotalJugo(fruta.getCantidadTotalJugo() - cantidad);
-            fruta.setCantidadActualJugo(fruta.getCantidadActualJugo() + cantidad);
+        if (fruta.getCantidadActualJugo() == 2000) {
+            int opcion = JOptionPane.showOptionDialog(null,
+                    "Este es el máximo contenedor ¿Desea tirar el jugo o pagar?",
+                    "Capacidad Excedida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                    new String[] { "Tirar", "Pagar" }, null);
 
-            System.out.println(contenedor.getCantidadMaxima() + "SOy la capacidad maxima");
-        } else if (fruta.getCantidadTotalJugo() <= 0) {
-            throw new ExceptionNoHayJugo("Se ha agotado el jugo, pero aún puede probar con otras opciones");
-        }
-
-        if (fruta.getCantidadActualJugo() > contenedor.getCantidadMaxima()) {
+            if (opcion == JOptionPane.YES_OPTION) {
+                throw new ExceptionCapacidadExcedida("El contenido del contenedor se ha excedido.");
+            } else {
+                Total totalPanel = new Total(fruta, contenedor); // Suponiendo que Total es una subclase de JFrame
+                totalPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                totalPanel.setVisible(true);
+                totalPanel.setLocationRelativeTo(null);
+            }
+        } else if (fruta.getCantidadActualJugo() > contenedor.getCantidadMaxima()
+                && fruta.getCantidadActualJugo() != 2000) {
             int opcion = JOptionPane.showOptionDialog(null,
                     "El contenido del contenedor ha alcanzado la capacidad máxima. ¿Desea tirar el jugo o servirlo en otro contenedor?",
                     "Capacidad Excedida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new String[] { "Tirar", "Servir en otro contenedor" }, null);
 
             if (opcion == JOptionPane.YES_OPTION) {
-                throw new ExceptionCapacidadExcedida("El contenido del vaso se ha excedido.");
+                throw new ExceptionCapacidadExcedida("El contenido del contenedor se ha excedido.");
             } else {
                 contenedor.setCantidad(fruta.getCantidadActualJugo());
             }
         }
+
+        if (cantidad <= fruta.getCantidadTotalJugo()) {
+            fruta.setCantidadTotalJugo(fruta.getCantidadTotalJugo() - cantidad);
+            fruta.setCantidadActualJugo(fruta.getCantidadActualJugo() + cantidad);
+
+            System.out.println(contenedor.getCantidadMaxima() + "Soy la capacidad maxima");
+        } else if (fruta.getCantidadTotalJugo() <= 0) {
+            throw new ExceptionNoHayJugo("Se ha agotado el jugo, pero aún puede probar con otras opciones");
+        }
+
     }
 
     public void verificarContenedor(int cantidad) {
@@ -85,6 +103,11 @@ public class ControllerJugos {
         } else {
             contenedor.setCantidadMaxima(2000);
         }
+
+    }
+
+    public String obtenerTotalMLYContenedor() {
+        return "Fueron: " + fruta.getCantidadActualJugo() + "ml" + "\nServido en: " + contenedor.getName();
 
     }
 
